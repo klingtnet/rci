@@ -1,6 +1,6 @@
 [package]
 name = "rci"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Andreas Linz <klingt.net@gmail.com>"]
 description = "Check if your tests are running in a continuous integration service"
 keywords = ["ci", "travis", "circle"]
