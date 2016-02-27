@@ -1,6 +1,6 @@
 # rci - Continuous Integration Environment
 
-[![Build Status](https://travis-ci.org/klingtnet/rci.svg?branch=master)](https://travis-ci.org/klingtnet/rci) [![Circle CI](https://circleci.com/gh/klingtnet/rci.svg?style=svg)](https://circleci.com/gh/klingtnet/rci)
+[![Build Status](https://travis-ci.org/klingtnet/rci.svg?branch=master)](https://travis-ci.org/klingtnet/rci) [![Circle CI](https://circleci.com/gh/klingtnet/rci.svg?style=svg)](https://circleci.com/gh/klingtnet/rci) [![Crates.io](https://img.shields.io/crates/v/rustc-serialize.svg)](https://crates.io/crates/rci)
 
 `rci` is wrapper for environment variables of some common continiuous integration services.
 At the moment [travis](https://travis-ci.org/) and [circle-ci](https://circleci.com/) is supported.
