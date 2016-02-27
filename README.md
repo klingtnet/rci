@@ -10,3 +10,12 @@ service.
 If you are testing for example audio or graphics output
 that is not available in certain CI environments
 then you can use this library to skip those tests.
+
+## Usage
+
+Add it to your dependencies section in your projects `Cargo.toml`:
+
+```toml
+[dependencies]
+rci = 0.1.*
+```
