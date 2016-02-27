@@ -111,6 +111,16 @@ impl Ci {
         }
     }
 
+    /// **Travis only**: The absolute path to the directory where the repository
+    /// being built has been copied on the worker.
+    /// TODO: Return a filesystem path instead?
+    fn build_dir(&self) -> Option<String> {
+        match self.service {
+            CiService::Travis => err!(env::var("TRAVIS_BUILD_DIR")),
+            _ => None,
+        }
+    }
+
     /// The sha1 hash of the commit being tested.
     fn commit(&self) -> Option<String> {
         match self.service {
