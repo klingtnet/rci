@@ -22,6 +22,18 @@ macro_rules! err {
     }
 }
 
+macro_rules! lang_version {
+    ($lang:expr, $name:ident) => {
+        /// **Travis only**: Returns the $lang version that is used.
+        fn $name(&self) -> Option<String> {
+            match self.service {
+                CiService::Travis => err!(env::var(format!("TRAVIS_{}_VERSION", $lang))),
+                _ => None,
+            }
+        }
+    }
+}
+
 struct Ci {
     service: CiService,
 }
@@ -116,6 +128,20 @@ impl Ci {
         }
     }
 
+    lang_version!("DART", dart);
+    lang_version!("GO", go);
+    lang_version!("HAXE", haxe);
+    lang_version!("JDK", java);
+    lang_version!("JULIA", julia);
+    lang_version!("NODE", node);
+    lang_version!("OTP", otp);
+    lang_version!("PERL", perl);
+    lang_version!("PHP", php);
+    lang_version!("PYTHON", python);
+    lang_version!("R", r);
+    lang_version!("RUBY", ruby);
+    lang_version!("RUST", rust);
+    lang_version!("SCALA", scala);
 }
 
 fn ci() -> bool {
