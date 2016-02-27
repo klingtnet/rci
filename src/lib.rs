@@ -161,10 +161,6 @@ impl Ci {
     lang_version!("SCALA", scala);
 }
 
-fn ci() -> bool {
-    err!(env::var("CI")).is_some() || err!(env::var("CONTINUOUS_INTEGRATION")).is_some()
-}
-
 #[test]
 fn test_unknown() {
     assert!(Ci::lang().is_some());
