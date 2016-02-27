@@ -70,6 +70,52 @@ impl Ci {
             _ => false,
         }
     }
+
+    fn branch(&self) -> Option<String> {
+        match self.service {
+            CiService::Circle => err!(env::var("CIRCLE_BRANCH")),
+            CiService::Travis => err!(env::var("TRAVIS_BRANCH")),
+            _ => None,
+        }
+    }
+
+    /// Returns the build number.
+    /// TODO: convert this to a number.
+    fn build_id(&self) -> Option<String> {
+        match self.service {
+            CiService::Circle => err!(env::var("CIRCLE_BUILD_NUM")),
+            CiService::Travis => err!(env::var("TRAVIS_BUILD_NUMBER")),
+            _ => None,
+        }
+    }
+
+    /// The sha1 hash of the commit being tested.
+    fn commit(&self) -> Option<String> {
+        match self.service {
+            CiService::Circle => err!(env::var("CIRCLE_SHA1")),
+            CiService::Travis => err!(env::var("TRAVIS_COMMIT")),
+            _ => None,
+        }
+    }
+
+    /// The number of the pull request this build forms part of.
+    /// If this build is not part of a pull request, `None` is returned.
+    /// TODO: convert this to a number.
+    fn pull_request(&self) -> Option<String> {
+        match self.service {
+            CiService::Circle => err!(env::var("CIRCLE_PR_NUMBER")),
+            CiService::Travis => {
+                let pr = err!(env::var("TRAVIS_PULL_REQUEST")).unwrap_or("false".to_string());
+                if pr == "false" {
+                    None
+                } else {
+                    Some(pr)
+                }
+            }
+            _ => None,
+        }
+    }
+
 }
 
 fn ci() -> bool {
