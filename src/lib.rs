@@ -91,6 +91,16 @@ impl Ci {
         }
     }
 
+    /// **Circle only**
+    /// A permanent link to the current build, for example,
+    /// https://circleci.com/gh/circleci/frontend/933
+    fn build_url(&self) -> Option<String> {
+        match self.service {
+            CiService::Circle => err!(env::var("CIRCLE_BUILD_URL")),
+            _ => None,
+        }
+    }
+
     /// Returns the build number.
     /// TODO: convert this to a number.
     fn build_id(&self) -> Option<String> {
