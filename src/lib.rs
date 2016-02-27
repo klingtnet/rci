@@ -42,6 +42,21 @@ impl Ci {
         }
     }
 
+    /// Returns the locale setting, g.e. `en_US.UTF-8`.
+    fn lang() -> Option<String> {
+        err!(env::var("LANG"))
+    }
+
+    /// Returns the search path.
+    fn path() -> Option<String> {
+        err!(env::var("PATH"))
+    }
+
+    /// Returns the path to the users home directory.
+    fn home() -> Option<String> {
+        err!(env::var("HOME"))
+    }
+
     fn is_travis(&self) -> bool {
         match self.service {
             CiService::Travis => true,
