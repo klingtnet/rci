@@ -22,7 +22,7 @@ macro_rules! err {
 
 macro_rules! lang_version {
     ($lang:expr, $name:ident) => {
-        /// **Travis only**: Returns the $lang version that is used.
+        /// **Travis only**: Returns the version of the language that is used.
         pub fn $name(&self) -> Option<String> {
             match self.service {
                 CiService::Travis => err!(env::var(format!("TRAVIS_{}_VERSION", $lang))),
