@@ -1,4 +1,5 @@
 use std::env;
+use std::fmt;
 
 #[derive(PartialEq, Debug)]
 pub enum CiService {
@@ -159,4 +160,9 @@ impl Ci {
     lang_version!("RUBY", ruby);
     lang_version!("RUST", rust);
     lang_version!("SCALA", scala);
+}
+impl fmt::Display for Ci {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Continuous Integration Service: {:?}", self.service)
+    }
 }
