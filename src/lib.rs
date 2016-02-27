@@ -1,3 +1,22 @@
+//! rci is wrapper for environment variables of some common continiuous integration services.
+//! At the moment [travis](https://travis-ci.org/) and [circle-ci](https://circleci.com/) is supported.
+//! A possible use case for this library is to check if your tests are running in an contniuous
+//! service.
+//! **Don't** use this to skip all of your tests and pretend everything works fine!
+//! If you are testing for example audio or graphics output
+//! that is not available in certain CI environments
+//! then you can use this library to skip those tests,
+//! like shown in the following example:
+//!
+//! ```rust
+//! let ci = Ci::new();
+//! if ci.is_none() {
+//!     return;
+//! } else {
+//!     println!("I'm running in: {}", ci);
+//! }
+//! ```
+
 use std::env;
 use std::fmt;
 
