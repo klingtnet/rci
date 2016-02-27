@@ -1,6 +1,3 @@
-mod travis;
-mod circle;
-
 use std::env;
 
 #[derive(PartialEq, Debug)]
