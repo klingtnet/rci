@@ -9,11 +9,13 @@
 //! like shown in the following example:
 //!
 //! ```rust
+//! use rci::*;
+//!
 //! let ci = Ci::new();
 //! if ci.is_none() {
 //!     return;
 //! } else {
-//!     println!("I'm running in: {}", ci);
+//!     println!("I'm running in: {}", ci.unwrap());
 //! }
 //! ```
 
