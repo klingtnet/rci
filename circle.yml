@@ -1,0 +1,10 @@
+dependencies:
+    post:
+        - curl -Lsf https://raw.githubusercontent.com/brson/multirust/master/blastoff.sh | sh -s -- --yes
+        - multirust default stable
+test:
+    override:
+        - >
+            eval $(ssh-agent) &&
+            ssh-add /home/ubuntu/.ssh/id_circleci_github &&
+            cargo test
