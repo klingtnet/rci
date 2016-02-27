@@ -1,0 +1,11 @@
+[package]
+name = "rci"
+version = "0.1.0"
+authors = ["Andreas Linz <klingt.net@gmail.com>"]
+description = "Check if your tests are running in a continuous integration service"
+keywords = ["ci", "travis", "circle"]
+repository = "https://github.com/klingtnet/rci"
+license = "MIT"
+readme = "README.md"
+
+[dependencies]
