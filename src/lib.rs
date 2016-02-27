@@ -1,7 +1,7 @@
 use std::env;
 
 #[derive(PartialEq, Debug)]
-enum CiService {
+pub enum CiService {
     Travis,
     Circle,
     Unknown,
@@ -22,7 +22,7 @@ macro_rules! err {
 macro_rules! lang_version {
     ($lang:expr, $name:ident) => {
         /// **Travis only**: Returns the $lang version that is used.
-        fn $name(&self) -> Option<String> {
+        pub fn $name(&self) -> Option<String> {
             match self.service {
                 CiService::Travis => err!(env::var(format!("TRAVIS_{}_VERSION", $lang))),
                 _ => None,
@@ -31,11 +31,11 @@ macro_rules! lang_version {
     }
 }
 
-struct Ci {
+pub struct Ci {
     service: CiService,
 }
 impl Ci {
-    fn new() -> Option<Self> {
+    pub fn new() -> Option<Self> {
         let s = Ci::which_ci();
         match s {
             CiService::Travis | CiService::Circle => Some(Ci { service: s }),
@@ -43,7 +43,7 @@ impl Ci {
         }
     }
 
-    fn which_ci() -> CiService {
+    pub fn which_ci() -> CiService {
         match (err!(env::var("TRAVIS")), err!(env::var("CIRCLECI"))) {
             (Some(_), None) => CiService::Travis,
             (None, Some(_)) => CiService::Circle,
@@ -52,35 +52,35 @@ impl Ci {
     }
 
     /// Returns the locale setting, g.e. `en_US.UTF-8`.
-    fn lang() -> Option<String> {
+    pub fn lang() -> Option<String> {
         err!(env::var("LANG"))
     }
 
     /// Returns the search path.
-    fn path() -> Option<String> {
+    pub fn path() -> Option<String> {
         err!(env::var("PATH"))
     }
 
     /// Returns the path to the users home directory.
-    fn home() -> Option<String> {
+    pub fn home() -> Option<String> {
         err!(env::var("HOME"))
     }
 
-    fn is_travis(&self) -> bool {
+    pub fn is_travis(&self) -> bool {
         match self.service {
             CiService::Travis => true,
             _ => false,
         }
     }
 
-    fn is_circle(&self) -> bool {
+    pub fn is_circle(&self) -> bool {
         match self.service {
             CiService::Circle => true,
             _ => false,
         }
     }
 
-    fn branch(&self) -> Option<String> {
+    pub fn branch(&self) -> Option<String> {
         match self.service {
             CiService::Circle => err!(env::var("CIRCLE_BRANCH")),
             CiService::Travis => err!(env::var("TRAVIS_BRANCH")),
@@ -91,7 +91,7 @@ impl Ci {
     /// **Circle only**
     /// A permanent link to the current build, for example,
     /// https://circleci.com/gh/circleci/frontend/933
-    fn build_url(&self) -> Option<String> {
+    pub fn build_url(&self) -> Option<String> {
         match self.service {
             CiService::Circle => err!(env::var("CIRCLE_BUILD_URL")),
             _ => None,
@@ -100,7 +100,7 @@ impl Ci {
 
     /// Returns the build number.
     /// TODO: convert this to a number.
-    fn build_id(&self) -> Option<String> {
+    pub fn build_id(&self) -> Option<String> {
         match self.service {
             CiService::Circle => err!(env::var("CIRCLE_BUILD_NUM")),
             CiService::Travis => err!(env::var("TRAVIS_BUILD_NUMBER")),
@@ -111,7 +111,7 @@ impl Ci {
     /// **Travis only**: The absolute path to the directory where the repository
     /// being built has been copied on the worker.
     /// TODO: Return a filesystem path instead?
-    fn build_dir(&self) -> Option<String> {
+    pub fn build_dir(&self) -> Option<String> {
         match self.service {
             CiService::Travis => err!(env::var("TRAVIS_BUILD_DIR")),
             _ => None,
@@ -119,7 +119,7 @@ impl Ci {
     }
 
     /// The sha1 hash of the commit being tested.
-    fn commit(&self) -> Option<String> {
+    pub fn commit(&self) -> Option<String> {
         match self.service {
             CiService::Circle => err!(env::var("CIRCLE_SHA1")),
             CiService::Travis => err!(env::var("TRAVIS_COMMIT")),
@@ -130,7 +130,7 @@ impl Ci {
     /// The number of the pull request this build forms part of.
     /// If this build is not part of a pull request, `None` is returned.
     /// TODO: convert this to a number.
-    fn pull_request(&self) -> Option<String> {
+    pub fn pull_request(&self) -> Option<String> {
         match self.service {
             CiService::Circle => err!(env::var("CIRCLE_PR_NUMBER")),
             CiService::Travis => {
