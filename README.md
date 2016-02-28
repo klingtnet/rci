@@ -17,7 +17,7 @@ Add it to your dependencies section in your projects `Cargo.toml`:
 
 ```toml
 [dependencies]
-rci = 0.1.*
+rci = "0.1.*"
 ```
 
 If you use `rci` only to change some behaviour in unit tests then add it only to the `[dev-dependencies]` section of your projects `Cargo.toml`.
